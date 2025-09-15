@@ -1,4 +1,4 @@
-import {baseURL} from '../config.js';
+const { baseURL } = await import(`../config.js?t=${Date.now()}`);
 
 const notyf = new Notyf();
 ////////用户信息相关////////

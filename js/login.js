@@ -1,4 +1,4 @@
-import { baseURL, enableRecaptcha } from '../config.js';
+const { baseURL, enableRecaptcha } = await import(`../config.js?t=${Date.now()}`);
 let recaptchaWidgetId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
