@@ -1,0 +1,222 @@
+:root {
+    --primary-color: #1e81a5;
+    --primary-hover: #5bb3d3;
+    --danger-color: #A6032F;
+    --danger-hover: #e44a74;
+    --success-color: #388e3c;
+    --background-color: #e3dddb;
+    --card-bg: #ffffff;
+    --table-header: #c9b2a5;
+    --border-radius: 8px;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-image: url('../images/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+h1, h3, h4 {
+    color: #2c3e50;
+}
+
+h1 {
+    font-size: 22px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+}
+
+#title:after {
+    margin-left: 4px;
+    margin-bottom: 2px;
+    content: " 杭州电子工业学院 专科教学管理平台 ";
+    font-weight: 550;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 20px;
+        display: flex;
+    }
+    
+    #title:after {
+        margin-left: 4px;
+        content: "专科教学管理平台";
+    }
+}
+
+.subtitle {
+    color: #34495e;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+
+.register-container {
+    width: 100%;
+    margin-top: 10px;
+    max-width: 480px;
+    padding: 30px;
+    backdrop-filter: blur(6px);
+    background-color: rgba(255,255,255,0.7);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-bottom: 10%;
+}
+
+@media (max-width: 768px) {
+    .register-container {
+        margin: 0 20px;
+        margin-bottom: 7%;
+        border-radius: 8px;
+        padding: 20px;
+    }
+}
+
+#recaptchaWidget {
+    display: flex; 
+    position: relative;
+    justify-content: center; 
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.register-form {
+    margin-bottom: 25px;
+}
+
+.notice-group {
+    text-align: center;
+    margin-bottom: 25px;
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-left: 2%;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 550;
+}
+
+.form-group input {
+    margin-inline: 1%;
+    width: 98%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 15px;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(30, 129, 165, 0.2);
+}
+
+.form-options {
+    margin-inline: 2%;
+    width: 96%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+/*    margin-bottom: 20px;*/
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input {
+    margin-right: 5px;
+}
+
+.register {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.register:hover {
+    text-decoration: underline;
+}
+
+.form-actions {
+    margin-inline: 1%;
+    width: 98%;
+    margin-top: 15px;
+}
+
+.button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    color: white;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+
+.register-btn {
+    background-color: var(--primary-color);
+}
+
+.register-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.errorMessage {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #d32f2f;
+    text-align: center;
+    font-size: 15px;
+    min-height: 14px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.errorMessage.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#copyright {
+    font-size: 13px;
+    color: #7f8c8d;
+    text-align: center;
+    margin-top: 30px;
+}

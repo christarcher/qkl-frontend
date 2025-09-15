@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专科教学管理平台</title>
+    <!-- 人机验证 -->
+    <script>
+    window.recaptchaWidgetId = null;
+    window.renderCaptcha = function() {
+        if (
+            document.getElementById('recaptchaWidget') &&
+            typeof grecaptcha !== 'undefined'
+        ) {
+            if (window.recaptchaWidgetId === null) {
+                window.recaptchaWidgetId = grecaptcha.render('recaptchaWidget', {
+                    'sitekey': '6LfHpy0rAAAAAJmkoakMX58wRVzGQoAVt10xBG1R'
+                });
+            }
+        } else {
+            setTimeout(window.renderCaptcha, 200);
+        }
+    };
+    </script>
+    <script src="https://recaptcha.net/recaptcha/api.js?onload=renderCaptcha&render=explicit" async defer></script>
+    <!-- 外部 -->
+    <link rel="stylesheet" href="css/lib/all.min.css">
+    <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/lib/bootstrap-icons.min.css" />
+
+    <link rel="stylesheet" href="css/login.css">
+    <script type="module" src="js/login.js" defer></script>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="login-container">
+        <h1><img src="images/favicon.ico" height="30" width="32"><span id="title"></span></h1>
+        <div class="login-form">
+            
+            <div id="loginForm">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> 学号</label>
+                    <input type="text" id="id" name="id" placeholder="请输入学号">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-lock"></i> 密码</label>
+                    <input type="password" id="password" name="password" placeholder="请输入密码">
+                </div>
+
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">记住我</label>
+                    </div>
+                    <a href="register.html" class="register">立即注册</a>
+                </div>
+
+                <div class="errorMessage" id="loginErrorMessage">placeHolder</div>
+                <div id="recaptchaWidget">如人机验证无法加载,请尝试切换网络</div>
+
+                <div class="form-actions">
+                    <button class="button login-btn" id="loginBtn">登录</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-footer">
+            <div id="copyright">版权所有 ©杭州电子工业学院</div>
+        </div>
+    </div>
+</body>
+</html>

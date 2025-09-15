@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专科教学管理平台</title>
+    <!-- 外部 -->
+    <script src="js/lib/highlight.min.js"></script>
+    <script src="js/lib/notyf.min.js"></script>
+    <link rel="stylesheet" href="css/lib/default.min.css">
+    <link rel="stylesheet" href="css/lib/notyf.min.css">
+
+    <link rel="stylesheet" href="css/home.css">
+    <script type="module" src="js/home.js" defer></script>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+<div class="home-container">
+    <h1><img src="images/favicon.ico" height="30" width="32"><span id="title"></span></h1>
+    <h3><span id="username">测试</span>同学 学号<span id="id">23270101</span></h3>
+    <h3>您目前有以下课程,可以启用或关闭:</h3>
+    <h3 id="unableUpdateNotice">如果您需要从教务处同步最新课程(例如选课前后),请在电脑端操作</h3>
+
+    <table id="coursesTable">
+        <thead>
+        <tr>
+            <th>课程ID</th>
+            <th>课程名称</th>
+            <th>课程时间</th>
+            <th>签到次数</th>
+            <th>自动签到</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 这里的数据通过 JavaScript 动态填充 -->
+        </tbody>
+    </table>
+
+    <div class="course-actions">
+        <button class="button" id="enableAllBtn">全部启用</button>
+        <button class="button" id="disableAllBtn">全部禁用</button>
+        <button class="button" id="fetchAllBtn">刷新课程</button>
+        <button class="button" id="updateAllBtn">从教务处同步</button>
+        <button class="button" id="saveAllBtn">保存课程设置</button>
+    </div>
+
+    <h4>日志信息：</h4>
+    <div id="logContainer" readonly></div>
+    <div class="button-container">
+        <button class="button" id="fetchLogBtn">刷新日志</button>
+        <button class="button" id="logoutBtn"><span>注销</span></button>
+    </div>
+    <div id="copyright">版权所有 ©杭州电子工业学院</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,488 @@
+:root {
+    --primary-color: #1e81a5;
+    --primary-hover: #5bb3d3;
+    --danger-color: #A6032F;
+    --danger-hover: #e44a74;
+    --success-color: #388e3c;
+    --background-color: #e3dddb;
+    --card-bg: #ffffff;
+    --table-header: #c9b2a5;
+    --border-radius: 8px;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-image: url('../images/bg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+/*标题*/
+/* 标题样式 */
+h1, h3, h4 {
+    color: #2c3e50;
+}
+
+h1 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+#title:after {
+    margin-left: 8px;
+    content: " 杭州电子工业学院 专科教学管理平台 ";
+}
+
+h3 {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #34495e;
+}
+
+#unableUpdateNotice {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 24px;
+        display: flex;
+    }
+    #title:after {
+        margin-left: 2px;
+        content: " 专科教学管理平台 ";
+    }
+    h3 {
+        font-size: 18px;
+    }
+    #unableUpdateNotice {
+        font-size: 16px;
+        display: flex;
+    }
+}
+
+
+/*基础样式*/
+.home-container {
+    max-width: 1024px;
+    margin: 3% 7%;
+    margin-top: 1%;
+    padding: 18px;
+    backdrop-filter: blur(6px);
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+/*    margin-bottom: ;*/
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 5%;
+        background-color: rgba(255,255,255,0.4);
+    }
+}
+
+
+/*表格*/
+#coursesTable {
+    font-size: 14px;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#coursesTable tbody {
+/*    backdrop-filter: blur(1px);*/
+    background-color: rgba(255,255,255,0.4);
+}
+
+#coursesTable th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 14px 0;
+    text-align: center;
+    font-weight: 500;
+    border: 1px solid #0c6b8a;
+    text-overflow: ellipsis;
+}
+
+#coursesTable th:first-child {
+    border-top-left-radius: 8px;
+}
+
+#coursesTable th:last-child {
+    border-top-right-radius: 8px;
+}
+
+#coursesTable td {
+    padding: 14px 4px;
+    border: 1px solid #e0e0e0;
+/*    background-color: #f9f9f9;*/
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#coursesTable tr:nth-child(odd) td {
+/*    background-color: #ffffff;*/
+}
+
+#coursesTable tr:hover td {
+    background-color: rgba(30, 129, 165, 0.2);
+    transition: background-color 0.2s ease;
+}
+
+#coursesTable tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+#coursesTable tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+
+/*操作列*/
+.action-cell {
+    text-align: center;
+/*    background-color: #f2f8fc !important;*/
+}
+
+.course-actions {
+    position: relative;
+    gap: 20px;
+    padding: 6px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+/*--------按钮--------*/
+.button {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-right: 14px;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}
+
+#enableAllBtn {
+    background-color: #388e3c;
+}
+
+#enableAllBtn:hover {
+    background-color: #43a047;
+}
+
+#enableAllBtn:active {
+    background-color: #2e7d32;
+}
+
+#enableAllBtn::before {
+    content: "✔️ ";
+    font-weight: bold;
+}
+
+#disableAllBtn {
+    background-color: #d32f2f;
+}
+
+#disableAllBtn:hover {
+    background-color: #e53935;
+}
+
+#disableAllBtn:active {
+    background-color: #c62828;
+}
+
+#disableAllBtn::before {
+    content: "❌ ";
+    font-weight: bold;
+}
+
+#fetchAllBtn {
+    background-color: #1976d2;
+}
+
+#fetchAllBtn:hover {
+    background-color: #1e88e5;
+}
+
+#fetchAllBtn:active {
+    background-color: #1565c0;
+}
+
+#fetchAllBtn::before {
+    content: "⚡ ";
+    font-weight: bold;
+}
+
+#updateAllBtn {
+    background-color: #e6ab70;
+}
+
+#updateAllBtn:hover {
+    background-color: #f4c596;
+}
+
+#updateAllBtn:active {
+    background-color: #d3bd67;
+}
+
+#updateAllBtn::before {
+    content: "🔔 ";
+    font-weight: bold;
+}
+
+
+#saveAllBtn {
+    position: absolute;
+    right: 0;
+    background-color: #6741d9;
+    margin-right: 0 !important;
+}
+
+#saveAllBtn:hover {
+    background-color: #7e57ff;
+}
+
+#saveAllBtn:active {
+    background-color: #5035a5;
+}
+
+#saveAllBtn::before {
+    content: "💾 ";
+}
+
+#fetchLogBtn {
+    background-color: #4a6fa5;
+    color: white;
+    border: none;
+    border-radius: 6px;
+}
+
+#fetchLogBtn:hover {
+    background-color: #5d8bc3;
+    box-shadow: 0 4px 8px rgba(74, 111, 165, 0.25);
+}
+
+#fetchLogBtn:active {
+    background-color: #3d5d8a;
+    transform: translateY(1px);
+}
+
+#fetchLogBtn:before {
+    content: "📃 ";
+}
+
+#adminSettingsBtn {
+    position: absolute;
+    right: 0 !important;
+    margin-right: 0;
+    background-color: #6b7280;
+    color: white;
+    border: none;
+    border-radius: 6px;
+}
+
+#adminSettingsBtn:hover {
+    background-color: #4b5563;
+    box-shadow: 0 4px 8px rgba(107, 114, 128, 0.25);
+}
+
+#adminSettingsBtn:active {
+    background-color: #374151;
+    transform: translateY(1px);
+}
+
+#adminSettingsBtn:before {
+    content: "🔐 ";
+}
+
+@media (max-width: 768px) {
+    #coursesTable {
+        font-size: 13px;
+    }
+
+    .course-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        flex-flow: row wrap;
+        margin-right: 0;
+        justify-content: space-evenly;
+    }
+    
+    .button {
+        width: 48%;
+        margin: 0;
+        flex: none;
+    }
+
+    #updateAllBtn {
+        display: none;
+    }
+
+    #saveAllBtn {
+        position: relative;
+        background-color: #6741d9;
+    }
+}
+/*------------------*/
+
+/*最下排两个button的container*/
+.button-container {
+    position: relative;
+    margin-top: 20px;
+}
+
+
+/*滑块开关*/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 26px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #46b7af;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/*日志容器*/
+#logContainer {
+/*    width: 100%;*/
+    max-width: 100%;
+    height: 350px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow-y: auto;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 15px;
+    padding: 15px;
+    background-color: rgba(30, 30, 30, 0.9);
+    color: #dcdcdc;
+    white-space: pre-wrap;
+    line-height: 1.4;
+/*    margin-bottom: 15px;*/
+}
+
+#logContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+#logContainer::-webkit-scrollbar-track {
+    background: #2d2d2d;
+    border-radius: 4px;
+}
+
+#logContainer::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+#logContainer::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+.log-error { color: #ff6b6b; font-weight: bold; }
+.log-warn { color: #ffd93d; }
+.log-info { color: #6bddff; }
+.log-debug { color: #9eff9e; }
+
+.log-timestamp { color: #999; }
+.log-json { color: #ce9178; }
+.log-number { color: #b5cea8; }
+.log-string { color: #ce9178; }
+.log-boolean { color: #569cd6; }
+.log-null { color: #569cd6; font-style: italic; }
+.log-key { color: #9cdcfe; }
+
+#copyright {
+    margin-top: 15px;
+    color: #2c3e50;
+    width: 100%;
+    text-align: center;
+}

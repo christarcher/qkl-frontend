@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专科教学管理平台 - 管理员后台</title>
+    <style>
+        * { 
+            box-sizing: border-box; transition: all 0.3s ease; 
+        }
+
+        body {
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+            background: #e3dddb;
+            margin: 0;
+        }
+
+        .config-container { 
+            margin: 3% 7%;
+            padding: 25px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        input[type="number"], input[type="text"], input[type="password"] {
+            padding: 8px 12px;
+            font-size: 15px;
+            border: 1.5px solid #cdd0d6;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(60,60,60,0.06);
+            transition: border-color .25s, box-shadow .25s;
+            outline: none;
+            background: #fafbfc;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #1976d2;
+            box-shadow: 0 0 6px rgba(33,150,243,0.17);
+            background: #f0f5ff;
+        }
+
+        #editor { 
+            width: 100%;
+            height: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .button {
+            flex: 1;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            color: white;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-right: 20px;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+
+        #formatCodeBtn {
+            background-color: #1976d2;
+        }
+
+        #formatCodeBtn:hover {
+            background-color: #1e88e5;
+        }
+
+        #formatCodeBtn:active {
+            background-color: #1565c0;
+        }
+
+        #formatCodeBtn::before {
+            content: "📋 ";
+            font-weight: bold;
+        }
+
+        #submitConfigBtn {
+            background-color: #6741d9;
+        }
+
+        #submitConfigBtn:hover {
+            background-color: #7e57ff;
+        }
+
+        #submitConfigBtn:active {
+            background-color: #5035a5;
+        }
+
+        #submitConfigBtn::before {
+            content: "💾 ";
+        }
+        
+        #generateTokenBtn {
+            background-color: #1976d2;
+        }
+
+        #generateTokenBtn:hover {
+            background-color: #2980ef;
+        }
+
+        #generateTokenBtn:active {
+            background-color: #145bae;
+        }
+
+        #generateTokenBtn::before {
+            content: "🎫 ";
+        }
+
+    </style>
+    <!-- 引入 Monaco Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.30.1/min/vs/loader.min.js"></script>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+<div class="config-container" style="height: max(90vh, 1400px); overflow-y: auto;">
+    <h2>邀请码生成</h2>
+    <label>
+        用户ID：
+        <input id="inviteUserId" type="number" style="width:120px" value="23270101"/>
+    </label>
+    <button class="button" id="generateTokenBtn" style="margin:0">生成邀请码</button>
+    <span id="inviteToken" style="margin-left:16px;color:#e65100;font-weight:bold;"></span>
+
+    <h2>编辑系统配置</h2>
+    <div id="editor"></div>
+    <button class="button" id="formatCodeBtn">格式化代码</button>
+    <button class="button" id="submitConfigBtn">提交配置</button>
+
+    
+</div>
+
+<script type="module">
+    import {baseURL} from './config.js';
+    var codeFormated = false;
+    let editor;
+
+    // 初始化 Monaco Editor
+    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.30.1/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+        editor = monaco.editor.create(document.getElementById('editor'), {
+            value: '加载配置中...',
+            language: 'json', // 可以根据实际配置文件类型更改，支持多种语言
+            theme: 'vs-dark', // 使用深色主题，也可以用 'vs' 浅色主题
+            automaticLayout: true,
+            minimap: { enabled: true },
+            scrollBeyondLastLine: false,
+            fontSize: 14,
+            lineNumbers: true,
+            renderLineHighlight: 'all',
+            roundedSelection: false,
+            selectOnLineNumbers: true,
+            wordWrap: 'off'
+        });
+        
+        // 页面加载时获取配置
+        fetchConfig();
+    });
+    document.getElementById('generateTokenBtn').addEventListener('click', generateToken);
+    document.getElementById('submitConfigBtn').addEventListener('click', submitConfig);
+    document.getElementById('formatCodeBtn').addEventListener('click', formatCode);
+
+    function formatCode() {
+        try {
+            const content = editor.getValue();
+            const formatted = JSON.stringify(JSON.parse(content), null, 4);
+            editor.setValue(formatted);
+        } catch (e) {
+            alert('格式化失败：无效的 JSON 格式');
+            return;
+        }
+        codeFormated = true;
+    }
+
+    async function fetchConfig() {
+        try {
+            const response = await fetch(`${baseURL}/api/admin/getSysConfig`);
+            const configBase64 = await response.text(); 
+            const configText = window.atob(configBase64); // ✅ 解码
+            editor.setValue(configText);
+        } catch (error) {
+            alert(`获取配置出错 ${error}`);
+        }
+    }
+
+    async function submitConfig() {
+        const content = editor.getValue();
+        if (!codeFormatted) {
+            try {
+                const formatted = JSON.stringify(JSON.parse(content), null, 4);
+                editor.setValue(formatted);
+                codeFormatted = true;
+            } catch (e) {
+                alert("当前内容格式不正确，请手动格式化并确保为有效 JSON");
+                return;
+            }
+        }
+
+        try {
+            const configBase64 = window.btoa(editor.getValue());
+            const response = await fetch(`${baseURL}/api/admin/editConfig`, {
+                method: "POST",
+                body: configBase64
+            });
+            const result = await response.text();
+            alert("提交成功");
+        } catch (error) {
+            alert(`提交失败 ${error}`);
+        }
+    }
+
+    async function generateToken() {
+        const userId = document.getElementById('inviteUserId').value.trim();
+        try {
+            const res = await fetch(`${baseURL}/api/admin/getToken`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userId: parseInt(userId)
+                }),
+            });
+            let text = await res.text();
+            // 处理可能返回json字符串
+            try {
+                const data = JSON.parse(text);
+                text = data.token || data.inviteCode || text;
+            } catch {}
+            if(res.ok) {
+                document.getElementById('inviteToken').textContent = text;
+            } else {
+                document.getElementById('inviteToken').textContent = "生成失败：" + text;
+            }
+        } catch(e) {
+            document.getElementById('inviteToken').textContent = "网络异常: " + e;
+        }
+    }
+</script>
+
+</body>
+</html>
